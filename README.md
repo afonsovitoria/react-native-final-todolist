@@ -202,3 +202,4 @@ If this causes problems for you, you may want to try changing your terminal's co
 "# super-todo" 
 "# final-todolist" 
 "# react-native-final-todo" 
+"# react-native-final-todolist" 
