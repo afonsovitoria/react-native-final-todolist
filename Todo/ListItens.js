@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, CheckBox } from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, CheckBox } from 'react-native';
 import {formatDate} from './../helpers';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from '.././styles/styles';
+
 
 
 
@@ -115,67 +117,3 @@ editMethod(){
     );
   }
 }
-
-const styles = StyleSheet.create({
-	note: {
-		position: 'relative',
-		padding: 20,
-		paddingRight: 100,
-		borderBottomWidth: 2,
-		borderBottomColor: '#ededed',
-	},
-	
-	noteText:{
-		paddingLeft:30,
-		borderLeftWidth: 0,
-        borderRightWidth: 0,
-        borderTopWidth: 0,
-		fontSize: 18,
-	},
-	
-	liEdit:{
-		position: 'absolute',
-		justifyContent: 'center',
-		padding:10,
-		top: 10,
-		bottom: 10,
-		right: 20,
-	},
-	
-	liEditText:{
-		
-	},
-	
-	liDelete:{
-		position: 'absolute',
-		justifyContent: 'center',
-		padding: 20,
-		top: 10,
-		bottom: 10,
-		right: 60,
-	},
-	
-	liDeleteText:{
-	
-	},
-	
-	itemDone:{
-		backgroundColor:'#eee',
-	},
-	
-	boxCheck:{
-		position: 'absolute',
-		alignItems:'center',
-		justifyContent:'center',
-		margin: 'auto',
-		top: 30,
-		
-		
-		
-		
-		
-	}
-
-	
-	
-});

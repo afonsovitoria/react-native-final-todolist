@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import ListItens from './ListItens';
+import styles from '.././styles/styles';
+
 
 export default class Page extends React.Component {
 	
@@ -129,87 +131,3 @@ editingLi(key){
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-  	flex: 1,
-  },
-
-   	header:{
-		position: 'relative',
-		alignItems:'center',
-		justifyContent:'center',
-
-	},
-	
-	headerText:{
-		fontFamily: 'Roboto',
-		color:'#ccc',
-		fontSize: 30,
-		padding: 40,
-		letterSpacing: 6,
-		
-	},
-	
-	scrollContainer:{
-		flex: 1,
-		marginBottom: 100,
-	},
-	
-	footer:{
-		position: 'relative',
-		padding: 20,
-		paddingRight: 4,
-		borderBottomWidth: 2,
-		borderBottomColor: '#ededed',
-	},
-	
-	textInput:{
-		alignSelf: 'stretch',
-		color: '#fff',
-		padding: 15,
-		backgroundColor: '#252525',
-		borderTopColor:'#ededed',
-		width: 260,
-		borderRadius: 10,
-		
-	},
-	
-	addButton:{
-		position: 'absolute',
-		zIndex: 11,
-		right: 145,
-		bottom: 105,
-		backgroundColor: '#ed5e5e',
-		width: 80,
-		height: 80,
-		borderRadius: 50,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation:8,
-	},
-	
-	addButtonText:{
-		color: '#fff',
-		fontSize: 35,
-	},
-	
-	updateList:{
-		position: 'absolute',
-		zIndex: 11,
-		right: 155,
-		bottom: 90,
-		backgroundColor: '#33c4bd',
-		width: 70,
-		height: 70,
-		borderRadius: 10,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 8,
-	},
-	
-	addButtonUpdate:{
-		color: '#fff',
-		fontSize: 35,
-	},
-
-});
