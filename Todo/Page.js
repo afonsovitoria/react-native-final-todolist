@@ -11,21 +11,36 @@ export default class Page extends React.Component {
 				noteArray: [],
 				noteText: '',
 				dateText: '',
+				idEditing: -1,
 		
 	}
 		
 }
 	
-addList() {
-		
+saveTask() {
+	
 		if (this.state.noteText){
-			let d = new Date();
-			this.state.noteArray.push({
-					date : new Date(this.state.dateText),
-					note : this.state.noteText
+			let tempList = this.state.noteArray.slice()
+			if(this.state.idEditing === -1) {
+				tempList.push({
+						date : new Date(this.state.dateText),
+						note : this.state.noteText
+				});
+			}
+			else {
+				tempList[this.state.idEditing] = {
+						date : new Date(this.state.dateText),
+						note : this.state.noteText
+				};
+			}
+			this.setState({ 
+				noteArray: tempList, 
+				noteText: "", 
+				dateText: "",
+				idEditing: -1,
 			});
-			this.setState({ noteArray: this.state.noteArray, noteText: "", dateText: ""});
-		} 
+			
+		}
 }
 	
 deleteLi(key){
@@ -38,11 +53,10 @@ deleteLi(key){
 editingLi(key){
 	this.setState({
 		noteText: this.state.noteArray[key].note,
-		dateText: this.state.noteArray[key].date
+		dateText: this.state.noteArray[key].date,
+		idEditing: key,
 	})
 }
-
-	
 
 
   render() {
@@ -58,17 +72,18 @@ editingLi(key){
 		
 	
     return (
+	
       <View style={styles.container}>
         
 			<View style={styles.header}>
-				<Text style={styles.headerText}>TodoList</Text>
+				<Text style={styles.headerText}>todolist</Text>
 			</View>
 			
 			<ScrollView style={styles.scrollContainer}>
 				{notes}
 			</ScrollView>
 			
-			<View style={styles.footer}>
+			<View key={this.props.keyval} style={styles.footer}>
 				
 				<TextInput 
 					style={styles.textInput}
@@ -76,26 +91,28 @@ editingLi(key){
 					value = {this.state.noteText}
 					placeholder= 'Type Task'
 					placeholderTextColor = 'white'
-					underlineColorAndroid='transparent'>
-				</TextInput>
+					underlineColorAndroid='transparent'
+				/>
 				
 				<DatePicker
-                	style={{width: 250, marginLeft: 10}}
+                	style={{position: 'absolute', top: 30, right: 7 }}
                 	date={this.state.dateText}
                 	mode="date"
-					placeholder="Select Date"
+					placeholder=" "
                 	format="YYYY-MM-DD"
 					confirmBtnText="Confirm"
 					cancelBtnText="Cancel"
 					customStyles={{
                      dateIcon: {
-                     width: 0,
-                     height: 0,
+                     width: 60,
+                     height: 60,
+ 
                      },
                      dateInput: {
-                     borderLeftWidth: 0,
-                     borderRightWidth: 0,
-                     borderTopWidth: 0,
+                       borderWidth: 0,
+					   borderStyle: null,
+  					   height: 0,
+					   width: 0,
                      }
                  }}
                 onDateChange={(dateText) => this.setState({dateText})}
@@ -105,11 +122,9 @@ editingLi(key){
 
 		</View>
 			
-			
-			<TouchableOpacity onPress={ this.addList.bind(this)} style={styles.addButton}>
+			<TouchableOpacity onPress={this.saveTask.bind(this)} style={styles.addButton}>
 				<Text style={styles.addButtonText}>+</Text>
-			</TouchableOpacity>
-			
+			 </TouchableOpacity>
       </View>
     );
   }
@@ -120,17 +135,18 @@ const styles = StyleSheet.create({
   },
 
    	header:{
-		backgroundColor:'#33c4bd',
+		position: 'relative',
 		alignItems:'center',
 		justifyContent:'center',
-		borderBottomWidth: 10,
-		borderBottomColor: '#ddd',
+
 	},
 	
 	headerText:{
-		color:'white',
-		fontSize: 20,
-		padding: 26,
+		fontFamily: 'Roboto',
+		color:'#ccc',
+		fontSize: 30,
+		padding: 40,
+		letterSpacing: 6,
 		
 	},
 	
@@ -140,23 +156,44 @@ const styles = StyleSheet.create({
 	},
 	
 	footer:{
-		position:'absolute',
-		bottom:0,
-		left: 0,
-		right: 0,
-		zIndex: 10,
+		position: 'relative',
+		padding: 20,
+		paddingRight: 4,
+		borderBottomWidth: 2,
+		borderBottomColor: '#ededed',
 	},
 	
 	textInput:{
 		alignSelf: 'stretch',
 		color: '#fff',
-		padding: 20,
+		padding: 15,
 		backgroundColor: '#252525',
-		borderTopWidth: 2,
 		borderTopColor:'#ededed',
+		width: 260,
+		borderRadius: 10,
+		
 	},
 	
 	addButton:{
+		position: 'absolute',
+		zIndex: 11,
+		right: 145,
+		bottom: 105,
+		backgroundColor: '#ed5e5e',
+		width: 80,
+		height: 80,
+		borderRadius: 50,
+		alignItems: 'center',
+		justifyContent: 'center',
+		elevation:8,
+	},
+	
+	addButtonText:{
+		color: '#fff',
+		fontSize: 35,
+	},
+	
+	updateList:{
 		position: 'absolute',
 		zIndex: 11,
 		right: 155,
@@ -170,7 +207,7 @@ const styles = StyleSheet.create({
 		elevation: 8,
 	},
 	
-	addButtonText:{
+	addButtonUpdate:{
 		color: '#fff',
 		fontSize: 35,
 	},

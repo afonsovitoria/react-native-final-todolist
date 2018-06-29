@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, CheckBox } from 'react-native';
 import {formatDate} from './../helpers';
 import DatePicker from 'react-native-datepicker';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 
@@ -30,10 +31,13 @@ editMethod(){
             this.handleSubmit ()
         }
         else {
-            !this.props.onEditing || this.props.onEditing()
+            !this.props.onEditing || this.props.onEditing(this)
         }
-		
+	
 }
+
+	
+
 
 
   render() {
@@ -78,9 +82,8 @@ editMethod(){
 		}
 		{this.state.isEditing
 		
-			? <TextInput style={styles.noteText} onChangeText = {this.handleSubmit}>>
-				{this.props.val.note}
-			  </TextInput>
+			? <TextInput style={styles.noteText} value={this.props.val.note}
+			  />
 			:
 			
 			<Text style={styles.noteText}>
@@ -91,17 +94,20 @@ editMethod(){
 			
 			
 			<TouchableOpacity onPress={this.props.deleteMethod} style={styles.liDelete}>
-				<Text style={styles.liDeleteText}>Delete</Text>
+				<Icon name="delete" size={30} color="red"/>
+				<Text style={styles.liDeleteText}></Text>
 			</TouchableOpacity>
 			
 			<TouchableOpacity onPress={this.editMethod} style={styles.liEdit}>
-				<Text style={styles.liEditText}>{this.props.isEditing ? "Save" : "Edit"}</Text>
+				<Icon name="edit" size={30} color="#2980b9"/>
+				<Icon style={styles.liEditText}></Icon>
 			</TouchableOpacity>
 			
 			<CheckBox
 				onValueChange = {this.handleDone}
 				value = {this.state.itemDone}
 				style={styles.boxCheck}
+				
 			/>
 
 			</View>
@@ -124,38 +130,37 @@ const styles = StyleSheet.create({
 		borderLeftWidth: 0,
         borderRightWidth: 0,
         borderTopWidth: 0,
+		fontSize: 18,
 	},
 	
 	liEdit:{
 		position: 'absolute',
 		justifyContent: 'center',
-		backgroundColor: '#2980b9',
 		padding:10,
 		top: 10,
 		bottom: 10,
-		right: 30,
+		right: 20,
 	},
 	
 	liEditText:{
-		color: 'white',
+		
 	},
 	
 	liDelete:{
 		position: 'absolute',
 		justifyContent: 'center',
-		backgroundColor: 'red',
-		padding: 10,
+		padding: 20,
 		top: 10,
 		bottom: 10,
-		right: 100,
+		right: 60,
 	},
 	
 	liDeleteText:{
-		color: 'white',
+	
 	},
 	
 	itemDone:{
-		backgroundColor: 'red',
+		backgroundColor:'#eee',
 	},
 	
 	boxCheck:{
@@ -163,7 +168,9 @@ const styles = StyleSheet.create({
 		alignItems:'center',
 		justifyContent:'center',
 		margin: 'auto',
-		top: 20,
+		top: 30,
+		
+		
 		
 		
 		
